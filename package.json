@@ -1,0 +1,14 @@
+{
+  "name": "webcamapp",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:aksm/webcamapp.git",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.15.2",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.18.8"
+  }
+}
