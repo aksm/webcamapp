@@ -3,6 +3,17 @@ const canvas = document.querySelector('.photo');
 const ctx = canvas.getContext('2d');
 const strip = document.querySelector('.strip');
 const snap = document.querySelector('.snap');
+const filter = document.querySelector('#filter');
+const rgb = document.getElementById('rgb');
+
+function hideElement(element) {
+  element.classList.remove('show');
+  element.classList.add('hide');
+}
+function showElement(element) {
+  element.classList.remove('hide');
+  element.classList.add('show');
+}
 
 function getVideo() {
   navigator.mediaDevices.getUserMedia({ video: true, audio: false}).
@@ -24,9 +35,23 @@ function paintToCanvas() {
   return setInterval(() => {
     ctx.drawImage(video, 0, 0, width, height);
     let pixels = ctx.getImageData(0, 0, width, height);
-    // pixels = redEffect(pixels);
-    // pixels = rgbSplit(pixels);
-    pixels = greenScreen(pixels);
+    switch(filter.options[filter.selectedIndex].value) {
+      case 'red':
+        hideElement(rgb);
+        pixels = redEffect(pixels);
+      break;
+      case 'green':
+        showElement(rgb);
+        pixels = greenScreen(pixels);
+      break;
+      case 'rgb':
+        hideElement(rgb);
+        pixels = rgbSplit(pixels);
+      break;
+      default:
+        hideElement(rgb);
+
+    }
     // ctx.globalAlpha - 0.1;
     ctx.putImageData(pixels, 0, 0);
   }, 16);
